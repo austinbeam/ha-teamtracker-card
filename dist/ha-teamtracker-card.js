@@ -85,7 +85,6 @@ class TeamTrackerCard extends LitElement {
     function dateDiff(first, second) {
       return Math.round((second.getTime() - first.getTime()) / (1000 * 60 * 60 * 24));
     }
-
     function dateDiffWholeDays(first,second) {
       var f = new Date(first.getTime());
       var s = new Date(second.getTime());
@@ -456,6 +455,7 @@ if (sport.includes("hockey")) {
         <style>
           .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
           .title { text-align: center; font-size: 1.2em; font-weight: 500; }
+          .league-bg { opacity: 0.8; position:absolute; top: 5%; left: 50%; margin-right: -50%; transform: translate(-50%, -15%); width: 15%; z-index: 0; }
           .team-bg { opacity: 0.08; position: absolute; top: -30%; left: -20%; width: 58%; z-index: 0; }
           .opponent-bg { opacity: 0.08; position: absolute; top: -30%; right: -20%; width: 58%; z-index: 0; }
           .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
@@ -475,6 +475,7 @@ if (sport.includes("hockey")) {
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
             <img class="opponent-bg" src="${logoBG[2]}" />
+            <img class="league-bg" src="${stateObj.attributes.league_logo}" />
             <div class="card-content">
               <div class="team">
                 <img src="${logo[1]}" />
@@ -501,6 +502,7 @@ if (sport.includes("hockey")) {
           <style>
             .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
             .title { text-align: center; font-size: 1.2em; font-weight: 500; }
+            .league-bg { opacity: 0.8; position:absolute; top: 5%; left: 50%; margin-right: -50%; transform: translate(-50%, -15%); width: 15%; z-index: 0; }
             .team-bg { opacity: 0.08; position:absolute; top: -20%; left: -20%; width: 58%; z-index: 0; }
             .opponent-bg { opacity: 0.08; position:absolute; top: -20%; right: -20%; width: 58%; z-index: 0; }
             .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
@@ -549,6 +551,7 @@ if (sport.includes("hockey")) {
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
             <img class="opponent-bg" src="${logoBG[2]}" />
+            <img class="league-bg" src="${stateObj.attributes.league_logo}" />
             <div class="card-content">
               <div class="team">
                 <img src="${logo[1]}" />
@@ -618,6 +621,8 @@ if (sport.includes("hockey")) {
           <style>
             .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
             .title { text-align: center; font-size: 1.2em; font-weight: 500; }
+            .spacer { height: 25px; };
+            .league-bg { opacity: 0.8; position:absolute; top: 5%; left: 50%; margin-right: -50%; transform: translate(-50%, -15%); width: 15%; z-index: 0; }
             .team-bg { opacity: 0.08; position:absolute; top: -20%; left: -20%; width: 58%; z-index: 0; }
             .opponent-bg { opacity: 0.08; position:absolute; top: -20%; right: -20%; width: 58%; z-index: 0; }
             .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
@@ -641,8 +646,10 @@ if (sport.includes("hockey")) {
           <ha-card>
               <div class="card">
               <div class="title">${title}</div>
+              <div class="spacer"></div>
               <img class="team-bg" src="${logoBG[1]}" />
               <img class="opponent-bg" src="${logoBG[2]}" />
+              <img class="league-bg" src="${stateObj.attributes.league_logo}" />
               <div class="card-content">
                 <div class="team">
                   <img src="${logo[1]}" />
@@ -682,6 +689,7 @@ if (sport.includes("hockey")) {
       return html`
         <style>
           .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
+          .league-bg { opacity: 0.8; position:absolute; top: 5%; left: 50%; margin-right: -50%; transform: translate(-50%, -15%); width: 15%; z-index: 0; }
           .team-bg { opacity: 0.08; position: absolute; top: -20%; left: -30%; width: 75%; z-index: 0; }
           .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
           .team { text-align: center; width: 50%; }
@@ -693,6 +701,7 @@ if (sport.includes("hockey")) {
         <ha-card>
           <div class="card">
             <img class="team-bg" src="${logoBG[team]}" />
+            <img class="league-bg" src="${stateObj.attributes.league_logo}" />
             <div class="card-content">
               <div class="team">
                 <img src="${logo[team]}" />
