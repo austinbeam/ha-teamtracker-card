@@ -117,16 +117,16 @@ class TeamTrackerCard extends LitElement {
       gameDay = t.translate("common.tomorrow");
       gameDateShort= dateForm.toLocaleDateString(lang, { weekday: 'long' });
     }
-    var gameTime = dateForm.toLocaleTimeString(lang, { hour: '2-digit', minute:'2-digit' });
+    var gameTime = dateForm.toLocaleTimeString(lang, { hour: 'numeric', minute:'2-digit' });
     if (time_format == "24") {
       gameTime = dateForm.toLocaleTimeString(lang, { hour: '2-digit', minute:'2-digit', hour12:false });
     }
     if (time_format == "12") {
-      gameTime = dateForm.toLocaleTimeString(lang, { hour: '2-digit', minute:'2-digit', hour12:true });
+      gameTime = dateForm.toLocaleTimeString(lang, { hour: 'numeric', minute:'2-digit', hour12:true });
     }
     if (time_format == "system") {
       var sys_lang = navigator.language || "en"
-      gameTime = dateForm.toLocaleTimeString(sys_lang, { hour: '2-digit', minute:'2-digit' });
+      gameTime = dateForm.toLocaleTimeString(sys_lang, { hour: 'numeric', minute:'2-digit' });
     }
     var gameMonth = dateForm.toLocaleDateString(lang, { month: 'short' });
     var gameDate = dateForm.toLocaleDateString(lang, { day: '2-digit' });
