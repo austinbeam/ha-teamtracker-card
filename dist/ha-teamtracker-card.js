@@ -756,19 +756,6 @@ if (sport.includes("hockey")) {
               <div class="location">${location}</div>
               <div class="network">${in2}</div>
             </div>
-            <div class="line"></div>
-            <div class="last-play">
-              <p></p>
-            </div>
-            <div class="bar-text">${gameBar}</div>
-            <div class="bar-wrapper">
-              <div class="bar1-label">${barLabel[1]}</div>
-              <div class="bar-flex">
-                <div class="bar1-length"></div>
-                <div class="bar2-length"></div>
-              </div>
-              <div class="bar2-label">${barLabel[2]}</div>
-            </div>
           </div>
           </ha-card>
         `;
