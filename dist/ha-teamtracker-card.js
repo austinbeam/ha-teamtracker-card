@@ -715,11 +715,6 @@ if (sport.includes("hockey")) {
                 <img src="${logo[1]}" />
                 <div class="name"><span class="rank">${rank[1]}</span> ${name[1]}</div>
                 <div class="record">${record[1]}</div>
-                <div class="timeouts">
-                  <div class="timeouts1"></div>
-                  <div class="timeouts1"></div>
-                  <div class="timeouts1"></div>
-                </div>
               </div>
               <div class="possession1">&bull;</div>
               <div class="score"></div>
@@ -730,11 +725,6 @@ if (sport.includes("hockey")) {
                 <img src="${logo[2]}" />
                 <div class="name"><span class="rank">${rank[2]}</span> ${name[2]}</div>
                 <div class="record">${record[2]}</div>
-                <div class="timeouts">
-                  <div class="timeouts2"></div>
-                  <div class="timeouts2"></div>
-                  <div class="timeouts2"></div>
-                </div>
               </div>
             </div>
             <div class="play-clock">${playClock}</div>
