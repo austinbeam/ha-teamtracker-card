@@ -7,7 +7,18 @@ class TeamTrackerCard extends LitElement {
     return {
       hass: {},
       _config: {},
+      _revealed: {},
     };
+  }
+
+  constructor() {
+    super();
+    this._revealed = false;
+    this._revealGame = undefined;
+  }
+
+  _toggleReveal() {
+    this._revealed = !this._revealed;
   }
 
   setConfig(config) {
@@ -36,7 +47,15 @@ class TeamTrackerCard extends LitElement {
     const outlineColor = this._config.outline_color;
     const showLeague = this._config.show_league;
     const showTicker = this._config.show_ticker;
-    const hideSpoilers = this._config.hide_spoilers;
+    // hide_spoilers: tapping the card toggles the score visible. The reveal
+    // resets when the sensor moves on to a different game.
+    const spoilerGame = this._config.entity + "|" + stateObj.attributes.date;
+    if (this._revealGame !== spoilerGame) {
+      this._revealGame = spoilerGame;
+      this._revealed = false;
+    }
+    const tapToReveal = this._config.hide_spoilers && ['IN', 'POST'].includes(stateObj.state);
+    const hideSpoilers = tapToReveal && !this._revealed;
     var homeSide = String(this._config.home_side).toUpperCase();
 
     var logoBG = [];
@@ -470,8 +489,9 @@ if (sport.includes("hockey")) {
           .rank { font-size:0.8em; display: ${rankDisplay}; }
           .line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
           .status { font-size: 1.2em; text-align: center; }
+          ha-card.tap-reveal { cursor: pointer; }
         </style>
-        <ha-card>
+        <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
           <div class="card">
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
@@ -514,8 +534,9 @@ if (sport.includes("hockey")) {
           .rank { font-size:0.8em; display: ${rankDisplay}; }
           .line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
           .status { font-size: 1.2em; text-align: center; }
+          ha-card.tap-reveal { cursor: pointer; }
         </style>
-        <ha-card>
+        <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
           <div class="card">
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
@@ -588,8 +609,9 @@ if (sport.includes("hockey")) {
             .bar2-label { flex: 0 0 10px; padding: 0 0 0 10px; text-align: right; }
             .percent { padding: 0 6px; }
             .post-game { margin: 0 auto; }
+            ha-card.tap-reveal { cursor: pointer; }
           </style>
-          <ha-card>
+          <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
             <div class="card">
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
@@ -704,8 +726,9 @@ if (sport.includes("hockey")) {
             .bar2-label { flex: 0 0 10px; padding: 0 0 0 10px; text-align: right; }
             .percent { padding: 0 6px; }
             .post-game { margin: 0 auto; }
+            ha-card.tap-reveal { cursor: pointer; }
           </style>
-          <ha-card>
+          <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
             <div class="card">
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
