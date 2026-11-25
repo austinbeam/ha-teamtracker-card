@@ -66,6 +66,7 @@ Add a Manual card to the dashboard and enter the YAML to configure it as desired
 | `show_timeouts` | Specifies if timeout indicators should be shown. | `true` | No |  `true` `false`  |
 | `show_rank` | Specifies if team rank should be shown. | `true` | No |  `true` `false`  |
 | `show_league` | Specifies if league should be shown at the top of the card. | `false` | No |  `true` `false`  |
+| `hide_spoilers` | Hides the score and other game details that could give away the result during and after a game. Tap the card to show the score, and tap again to hide it. It hides again automatically when the next game comes up. | `false` | No |  `true` `false`  |
 
 
 ### Examples
