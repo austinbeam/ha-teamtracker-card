@@ -569,7 +569,8 @@ if (sport.includes("hockey")) {
             .post-game { margin: 0 auto; }
             ha-card.tap-reveal { cursor: pointer; }
             .spoiler-hint { position: absolute; left: 35%; width: 30%; top: 50%; transform: translateY(-50%); font-size: 1em; opacity: 0.6; z-index: 1; }
-            .spoiler .score, .spoiler .divider, .spoiler .possession1, .spoiler .possession2, .spoiler .timeouts, .spoiler .last-play, .spoiler .bar-text, .spoiler .bar-wrapper { visibility: hidden; }
+            .spoiler .score, .spoiler .divider, .spoiler .possession1, .spoiler .possession2, .spoiler .timeouts { visibility: hidden; }
+            .spoiler .sub3 + .line, .spoiler .last-play, .spoiler .bar-text, .spoiler .bar-wrapper { display: none; }
           </style>
           <ha-card class="${tapToReveal ? 'tap-reveal' : ''} ${hideSpoilers ? 'spoiler' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
             <div class="card">
