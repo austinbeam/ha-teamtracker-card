@@ -471,7 +471,7 @@ if (sport.includes("hockey")) {
       notFoundLogo = 'https://a.espncdn.com/i/espn/misc_logos/500/ncaa.png'
     }
 
-    if (stateObj.state == 'POST' && !hideSpoilers) {
+    if (stateObj.state == 'POST') {
       return html`
         <style>
           .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
@@ -490,13 +490,16 @@ if (sport.includes("hockey")) {
           .line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
           .status { font-size: 1.2em; text-align: center; }
           ha-card.tap-reveal { cursor: pointer; }
+          .spoiler-hint { position: absolute; left: 35%; width: 30%; top: 50%; transform: translateY(-50%); font-size: 1em; opacity: 0.6; z-index: 1; }
+          .spoiler .score, .spoiler .record { visibility: hidden; }
         </style>
-        <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
+        <ha-card class="${tapToReveal ? 'tap-reveal' : ''} ${hideSpoilers ? 'spoiler' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
           <div class="card">
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
             <img class="opponent-bg" src="${logoBG[2]}" />
             <div class="card-content">
+              ${hideSpoilers ? html`<div class="spoiler-hint">${t.translate("common.tapToShowScore")}</div>` : ''}
               <div class="team">
                 <img src="${logo[1]}" />
                 <div class="name"><span class="rank">${rank[1]}</span> ${name[1]}</div>
@@ -516,53 +519,8 @@ if (sport.includes("hockey")) {
         </ha-card>
       `;
     }
-    else if (stateObj.state == 'POST') {
-      return html`
-        <style>
-          .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
-          .title { text-align: center; font-size: 1.2em; font-weight: 500; }
-          .team-bg { opacity: 0.08; position: absolute; top: -30%; left: -20%; width: 58%; z-index: 0; }
-          .opponent-bg { opacity: 0.08; position: absolute; top: -30%; right: -20%; width: 58%; z-index: 0; }
-          .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; }
-          .team { text-align: center; width: 35%;}
-          .team img { max-width: 90px; }
-          .score { font-size: 3em; text-align: center; }
-          .score1op { opacity: ${scoreOp[1]}; }
-          .score2op { opacity: ${scoreOp[2]}; }
-          .divider { font-size: 2.5em; text-align: center; opacity: 0; }
-          .name { font-size: 1.4em; margin-bottom: 4px; }
-          .rank { font-size:0.8em; display: ${rankDisplay}; }
-          .line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
-          .status { font-size: 1.2em; text-align: center; }
-          ha-card.tap-reveal { cursor: pointer; }
-        </style>
-        <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
-          <div class="card">
-            <div class="title">${title}</div>
-            <img class="team-bg" src="${logoBG[1]}" />
-            <img class="opponent-bg" src="${logoBG[2]}" />
-            <div class="card-content">
-              <div class="team">
-                <img src="${logo[1]}" />
-                <div class="name"><span class="rank">${rank[1]}</span> ${name[1]}</div>
-                <div class="record"></div>
-              </div>
-              <div class="score score1op"></div>
-              <div class="divider">&nbsp&nbsp&nbsp</div>
-              <div class="score score2op"></div>
-              <div class="team">
-                <img src="${logo[2]}" />
-                <div class="name"><span class="rank">${rank[2]}</span> ${name[2]}</div>
-                <div class="record"></div>
-              </div>
-            </div>
-            <div class="status">${finalTerm}</div>
-          </div>
-        </ha-card>
-      `;
-    }
+    if (stateObj.state == 'IN') {
 
-    if (stateObj.state == 'IN'  && !hideSpoilers) {
         return html`
           <style>
             .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
@@ -610,13 +568,16 @@ if (sport.includes("hockey")) {
             .percent { padding: 0 6px; }
             .post-game { margin: 0 auto; }
             ha-card.tap-reveal { cursor: pointer; }
+            .spoiler-hint { position: absolute; left: 35%; width: 30%; top: 50%; transform: translateY(-50%); font-size: 1em; opacity: 0.6; z-index: 1; }
+            .spoiler .score, .spoiler .divider, .spoiler .possession1, .spoiler .possession2, .spoiler .timeouts, .spoiler .last-play, .spoiler .bar-text, .spoiler .bar-wrapper { visibility: hidden; }
           </style>
-          <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
+          <ha-card class="${tapToReveal ? 'tap-reveal' : ''} ${hideSpoilers ? 'spoiler' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
             <div class="card">
             <div class="title">${title}</div>
             <img class="team-bg" src="${logoBG[1]}" />
             <img class="opponent-bg" src="${logoBG[2]}" />
             <div class="card-content">
+              ${hideSpoilers ? html`<div class="spoiler-hint">${t.translate("common.tapToShowScore")}</div>` : ''}
               <div class="team">
                 <img src="${logo[1]}" />
                 <div class="name"><span class="rank">${rank[1]}</span> ${name[1]}</div>
@@ -679,99 +640,6 @@ if (sport.includes("hockey")) {
           </ha-card>
         `;
     }
-    else if (stateObj.state == 'IN') {
-        return html`
-          <style>
-            .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
-            .title { text-align: center; font-size: 1.2em; font-weight: 500; }
-            .team-bg { opacity: 0.08; position:absolute; top: -20%; left: -20%; width: 58%; z-index: 0; }
-            .opponent-bg { opacity: 0.08; position:absolute; top: -20%; right: -20%; width: 58%; z-index: 0; }
-            .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; }
-            .team { text-align: center; width:35%; }
-            .team img { max-width: 90px; }
-            .possession, .possession1, .possession2 { font-size: 2.5em; text-align: center; opacity: 0; font-weight:900; }
-            .possession1 {opacity: ${possessionOp[1]} !important; }
-            .possession2 {opacity: ${possessionOp[2]} !important; }
-            .score { font-size: 3em; text-align: center; }
-            .divider { font-size: 2.5em; text-align: center; margin: 0 4px; }
-            .name { font-size: 1.4em; margin-bottom: 4px; }
-            .rank { font-size:0.8em; display: ${rankDisplay}; }
-            .line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
-            .timeouts { margin: 0 auto; width: 70%; display: ${timeoutsDisplay}; }
-            .timeouts div.timeouts2:nth-child(-n + ${timeouts[2]})  { opacity: 1; }
-            .timeouts div.timeouts1:nth-child(-n + ${timeouts[1]})  { opacity: 1; }
-            .timeouts1 { height: 6px; border-radius: ${toRadius}px; border: ${clrOut}px solid ${outColor}; width: 20%; background-color: ${color[1]}; display: inline-block; margin: 0 auto; position: relative; opacity: 0.2; }
-            .timeouts2 { height: 6px; border-radius: ${toRadius}px; border: ${clrOut}px solid ${outColor}; width: 20%; background-color: ${color[2]}; display: inline-block; margin: 0 auto; position: relative; opacity: 0.2; }
-            .bases { font-size: 2.5em; text-align: center; font-weight:900; display: ${basesDisplay};}
-            .on-first { opacity: ${onFirstOp}; display: inline-block; }
-            .on-second { opacity: ${onSecondOp}; display: inline-block; }
-            .on-third { opacity: ${onThirdOp}; display: inline-block; }
-            .pitcher { opacity: 0.0; display: inline-block; }
-            .status { text-align:center; font-size:1.6em; font-weight: 700; }
-            .sub1 { font-weight: 700; font-size: 1.2em; margin: 6px 0 2px; }
-            .sub1, .sub2, .sub3 { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
-            .last-play { font-size: 1.2em; width: 100%; white-space: nowrap; overflow: hidden; box-sizing: border-box; }
-            .last-play p { display: inline-block; padding-left: 100%; margin: 2px 0 12px; animation : slide ${lastPlaySpeed}s linear infinite; }
-            @keyframes slide { 0%   { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-            .clock { text-align: center; font-size: 1.4em; }
-            .down-distance { text-align: right; }
-            .play-clock { font-size: 1.4em; text-align: center; }
-            .outs { text-align: center; display: ${outsDisplay}; }
-            .bar-text { text-align: center; display: ${barDisplay}; }
-            .bar-flex { width: 100%; display: flex; justify-content: center; margin-top: 4px; }
-            .bar2-length { width: ${barLength[2]}%; background-color: ${color[2]}; height: 12px; border-radius: 0 ${probRadius}px ${probRadius}px 0; border: ${clrOut}px solid ${outColor}; border-left: 0; transition: all 1s ease-out; }
-            .bar1-length { width: ${barLength[1]}%; background-color: ${color[1]}; height: 12px; border-radius: ${probRadius}px 0 0 ${probRadius}px; border: ${clrOut}px solid ${outColor}; border-right: 0; transition: all 1s ease-out; }
-            .bar-wrapper { display: ${barWrapDisplay}; }
-            .bar1-label { flex: 0 0 10px; padding: 0 10px 0 0; }
-            .bar2-label { flex: 0 0 10px; padding: 0 0 0 10px; text-align: right; }
-            .percent { padding: 0 6px; }
-            .post-game { margin: 0 auto; }
-            ha-card.tap-reveal { cursor: pointer; }
-          </style>
-          <ha-card class="${tapToReveal ? 'tap-reveal' : ''}" @click=${tapToReveal ? this._toggleReveal : null}>
-            <div class="card">
-            <div class="title">${title}</div>
-            <img class="team-bg" src="${logoBG[1]}" />
-            <img class="opponent-bg" src="${logoBG[2]}" />
-            <div class="card-content">
-              <div class="team">
-                <img src="${logo[1]}" />
-                <div class="name"><span class="rank">${rank[1]}</span> ${name[1]}</div>
-                <div class="record">${record[1]}</div>
-              </div>
-              <div class="score"></div>
-              <div class="divider">&nbsp&nbsp&nbsp</div>
-              <div class="score"></div>
-              <div class="team">
-                <img src="${logo[2]}" />
-                <div class="name"><span class="rank">${rank[2]}</span> ${name[2]}</div>
-                <div class="record">${record[2]}</div>
-              </div>
-            </div>
-            <div class="play-clock">${playClock}</div>
-            <div class="bases">
-              <div class="on-second">&bull;</div>
-            </div>
-            <div class="bases">
-              <div class="on-third">&bull;</div>
-              <div class="pitcher"></div>
-              <div class="on-first">&bull;</div>
-            </div>
-            <div class="outs">${in0}</div>
-            <div class="line"></div>
-            <div class="sub2">
-              <div class="venue">${venue}</div>
-              <div class="down-distance">${in1}</div>
-            </div>
-            <div class="sub3">
-              <div class="location">${location}</div>
-              <div class="network">${in2}</div>
-            </div>
-          </div>
-          </ha-card>
-        `;
-    }
-
     if (stateObj.state == 'PRE') {
         return html`
           <style>

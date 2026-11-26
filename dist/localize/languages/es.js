@@ -3,6 +3,7 @@ export const es = {
         "api_error": "Error de API",
         "no_upcoming_games": "No hay próximos juegos hasta el %s",
         "finalTerm": "%s - Final",
+        "tapToShowScore": "Toca para ver el marcador",
         "byeTerm": "DESCANSO",
         "tourney2": "Final",
         "tourney4": "Semifinales",
