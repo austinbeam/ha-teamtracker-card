@@ -3,6 +3,7 @@ export const en = {
         "api_error": "API Error",
         "no_upcoming_games": "No upcoming games through %s",
         "finalTerm": "%s - Final",
+        "tapToShowScore": "Tap to show score",
         "byeTerm": "BYE",
         "tourney2": "Final",
         "tourney4": "Semifinals",
